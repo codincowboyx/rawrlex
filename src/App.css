@@ -39,42 +39,41 @@
   padding: 20px;
 }
 
+.Color-picker-container {
+  margin-top: 16px;
+}
+
 .Rawrlex-container {
   display: flex;
-  width: calc(100% - 200px);
-  height: calc(100% - 200px);
+  width: 500px;
   position: absolute;
-  top: 200px;
+  top: 100px;
   left: 400px;
+  justify-content: center;
+  align-items: center;
 }
 
 .dashed-container {
   padding: 15px;
-  border: 2px dotted black;
   width: 100px;
   height: 1000px;
 }
 
 .solid-container {
-  border: 2px solid black;
   height: 99%;
 }
 
 .watch-face {
   border-radius: 50%;
-  width: 350px;
-  height: 350px;
-  position: relative;
-  top: 25%;
-  left: -125px;
-  border: 20px solid black;
+  position: absolute;
   box-sizing: border-box;
   background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .Rawrlex-dino-img {
-  width: 300px;
-  height: 300px;
 }
 
 @keyframes App-logo-spin {
