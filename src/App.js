@@ -94,7 +94,7 @@ function App() {
               width: `${size * 2.5}px`,
               height: `${size * 2.5}px`
             }} 
-            src={`https://tinydinos.org/${dinoId ? dinoId : 1}.svg`} 
+            src={`images/${dinoId ? dinoId : 1}.svg`} 
             className="Rawrlex-dino-img" 
             alt="dino"
           />
