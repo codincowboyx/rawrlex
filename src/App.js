@@ -1,17 +1,55 @@
 import React, { useEffect, useState, useRef } from 'react';
 import rawrlex from './rawrlex.png';
+import clsx from 'clsx';
 import Input from '@mui/material/Input';
 import './App.css';
 import Button from '@mui/material/Button';
 import ColorPicker from 'material-ui-color-picker';
 import { Slider } from '@mui/material';
 
+const STYLE = {
+  DOMINANT_COLOR: 0,
+  GRID: 1
+}
+
+const GRID_SIZE = 1000;
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+const Cell = ({ colors }) => {
+  return <div className='cell' style={{ backgroundColor: `#${colors[getRandomInt(colors.length)]}` }} />;
+}
+
+const Grid = ({ colors }) => {
+  return <div className='watch-grid'>
+    {[...Array(GRID_SIZE).keys()].map(() => (
+      <Cell colors={colors} />
+    ))}
+  </div>
+}
+
 function App() {
   const [dinoId, setDinoId] = useState(1);
   const [color, setColor] = useState("#000000");
+  const [colorArr, setColorArr] = useState([]);
   const [size, setSize] = useState(100);
+  const [style, setStyle] = useState(STYLE.DOMINANT_COLOR);
   const previewRef = useRef(null);
   const imgRef = useRef(null);
+  const innerBandRef = useRef(null);
+
+  useEffect(() => {
+    if (dinoId) {
+      fetch(`images/${dinoId}.svg`)
+        .then(res => res.text())
+        .then((str) => {
+          const colorArrTemp = str.match(/[a-f0-9]{6}/gi);
+          setColorArr(colorArrTemp);
+        });
+    }
+  }, [dinoId])
 
   useEffect(() => {
     // get the dinos dominant color from the svg
@@ -81,7 +119,38 @@ function App() {
             }} />
         </div>
         <Button onClick={() => { window.print() }} variant="contained" sx={{ marginTop: "20px" }}>Print</Button>
-
+        <div className='Watch-style-options'>
+          <div 
+            className={clsx('option-container', { 'option-selected': style === STYLE.DOMINANT_COLOR })}
+            onClick={() => { setStyle(STYLE.DOMINANT_COLOR); }}
+            >
+            <div className='option' style={{ backgroundColor: color }} />
+          </div>
+          <div 
+            className={clsx('option-container', { 'option-selected': style === STYLE.GRID })}
+            onClick={() => { setStyle(STYLE.GRID); }}
+            >
+            <div className='option'>
+              <div className='grid'>
+                <div className='row'>
+                  <Cell colors={colorArr} />
+                  <Cell colors={colorArr} />
+                  <Cell colors={colorArr} />
+                </div>
+                <div className='row'>
+                  <Cell colors={colorArr} />
+                  <Cell colors={colorArr} />
+                  <Cell colors={colorArr} />
+                </div>
+                <div className='row'>
+                  <Cell colors={colorArr} />
+                  <Cell colors={colorArr} />
+                  <Cell colors={colorArr} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       
       <div className='Rawrlex-container'>
@@ -102,10 +171,10 @@ function App() {
         <div className='dashed-container' style={{
               border: `2px dotted ${color}`
             }}>
-          <div className='solid-container' style={{
+          <div className='solid-container' ref={innerBandRef} style={{
               border: `2px solid ${color}`
             }}>
-            
+            {style === STYLE.GRID && <Grid colors={colorArr} />}
           </div>
         </div>
       </div>
