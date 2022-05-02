@@ -155,9 +155,10 @@ function App() {
       
       <div className='Rawrlex-container'>
         <div className='watch-face' style={{
-          border: `${size * 0.2}px solid ${color}`,
+          border: `${size * 0.1}px solid ${color}`,
           width: `${size * 3.5}px`,
-          height: `${size * 3.5}px`
+          height: `${size * 3.5}px`,
+          outline: style === STYLE.DOMINANT_COLOR ? '2px black solid' : 'none'
         }}>
           <img style={{
               width: `${size * 2.5}px`,
@@ -172,7 +173,8 @@ function App() {
               border: `2px dotted ${color}`
             }}>
           <div className='solid-container' ref={innerBandRef} style={{
-              border: `2px solid ${color}`
+              border: `2px solid ${color}`,
+              backgroundColor: style === STYLE.DOMINANT_COLOR ? color : 'none'
             }}>
             {style === STYLE.GRID && <Grid colors={colorArr} />}
           </div>
