@@ -272,18 +272,25 @@ function App() {
             </div>)}
         </div>
         <div className='watch-face' style={{
-          border: style === STYLE.REALISTIC_LEATHER || style === STYLE.REALISTIC_METAL ?
+          outline: style === STYLE.REALISTIC_LEATHER || style === STYLE.REALISTIC_METAL ?
           `${size * 0.1}px solid gray` : `${size * 0.1}px solid ${color}`,
           width: `${size * 3.5}px`,
           height: `${size * 3.5}px`,
-          outline: style === STYLE.DOMINANT_COLOR ? '2px black solid' : 'none',
+          // outline: style === STYLE.DOMINANT_COLOR ? '2px black solid' : 'none',
           borderRadius: getBorderRadius(faceShape)
         }}>
-          <img style={{
-              width: `${size * 2.5}px`,
-              height: `${size * 2.5}px`
+          <img 
+            // TODO: uncomment if we only want the dino and not svg
+            // style={{
+            //   width: `${size * 2.5}px`,
+            //   height: `${size * 2.5}px`
+            // }} 
+            // src={`images/${dinoId ? dinoId : 1}.svg`} 
+            style={{
+              width: `${size * 3.5}px`,
+              height: `${size * 3.5}px`
             }} 
-            src={`images/${dinoId ? dinoId : 1}.svg`} 
+            src={`https://raw.githubusercontent.com/tinydinosnft/tinydinosassets/main/images/dinos/1600x1600/original/${dinoId ? dinoId : 1}.png`}
             className="Rawrlex-dino-img" 
             alt="dino"
           />
