@@ -22,6 +22,11 @@ const FACE_SHAPE = {
   CIRCLE: 2
 }
 
+const WATCH_SIZE = {
+  ADULT: 0,
+  KIDS: 1
+}
+
 const GRID_SIZE = 1000;
 
 function getRandomInt(max) {
@@ -59,6 +64,7 @@ function App() {
   const [size, setSize] = useState(100);
   const [style, setStyle] = useState(STYLE.DOMINANT_COLOR);
   const [faceShape, setFaceShape] = useState(FACE_SHAPE.SQUARE);
+  const [watchSize, setWatchSize] = useState(WATCH_SIZE.ADULT);
   const previewRef = useRef(null);
   const imgRef = useRef(null);
   const innerBandRef = useRef(null);
@@ -219,13 +225,36 @@ function App() {
             onClick={() => { setFaceShape(FACE_SHAPE.CIRCLE) }}
           />
         </div>
+        <div className='watch-band-size'>
+          <h3 className='Input-label'>Choose Band Size:</h3>
+          <div 
+            className={clsx('option-container', 'dino-option', { 'option-selected': watchSize === WATCH_SIZE.ADULT })}
+            onClick={() => { setWatchSize(WATCH_SIZE.ADULT); setSize(75); }}
+          >
+            <img style={{ width: '75px', height: '75px' }} 
+              src={`images/${dinoId ? dinoId : 1}.svg`} 
+              className="Rawrlex-dino-img" 
+              alt="dino"
+            />
+          </div>
+          <div 
+            className={clsx('option-container', 'dino-option', { 'option-selected': watchSize === WATCH_SIZE.KIDS })}
+            onClick={() => { setWatchSize(WATCH_SIZE.KIDS); setSize(50); }}
+          >
+            <img style={{ width: '30px', height: '30px' }} 
+              src={`images/${dinoId ? dinoId : 1}.svg`} 
+              className="Rawrlex-dino-img" 
+              alt="dino"
+            />
+          </div>
+        </div>
         <Button onClick={() => { window.print() }} variant="contained" sx={{ marginTop: "20px" }}>Print</Button>
 
       </div>
       
       <div className='Rawrlex-container'>
         
-        <div className='dashed-container' style={{
+        <div className={clsx('dashed-container', { 'kids-container': watchSize === WATCH_SIZE.KIDS })} style={{
               border: style === STYLE.REALISTIC_METAL || style === STYLE.REALISTIC_LEATHER ? 'none' : `2px dotted ${color}`
             }}>
           {(style === STYLE.REALISTIC_METAL || style === STYLE.REALISTIC_LEATHER) ? (
@@ -243,7 +272,8 @@ function App() {
             </div>)}
         </div>
         <div className='watch-face' style={{
-          border: `${size * 0.1}px solid ${color}`,
+          border: style === STYLE.REALISTIC_LEATHER || style === STYLE.REALISTIC_METAL ?
+          `${size * 0.1}px solid gray` : `${size * 0.1}px solid ${color}`,
           width: `${size * 3.5}px`,
           height: `${size * 3.5}px`,
           outline: style === STYLE.DOMINANT_COLOR ? '2px black solid' : 'none',
