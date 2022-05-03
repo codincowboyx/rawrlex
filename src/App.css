@@ -43,6 +43,10 @@
   margin-top: 16px;
 }
 
+.realistic-chooser {
+  width: 100%;
+}
+
 .Rawrlex-container {
   display: flex;
   width: 500px;
@@ -59,13 +63,23 @@
   height: 1000px;
 }
 
-.solid-container {
+.solid-container,
+.img-band-container {
   height: 99%;
   overflow: hidden;
 }
 
+.img-band-container {
+  position: absolute;
+  left: -38px;
+  top: 0;
+}
+
+.img-band {
+  height: 100%;
+}
+
 .watch-face {
-  border-radius: 50%;
   position: absolute;
   box-sizing: border-box;
   background-color: white;
@@ -77,7 +91,8 @@
 .Rawrlex-dino-img {
 }
 
-.Watch-style-options {
+.Watch-style-options,
+.watch-face-styles {
   display: flex;
   width: 200px;
   flex-wrap: wrap;
@@ -86,23 +101,50 @@
   margin-top: 16px;
 }
 
-.option-container {
-  border-radius: 50%;
+.option-container,
+.face-option-container {
   width: 75px;
   height: 75px;
   padding: 4px;
+  overflow: hidden;
+  margin-top: 12px;
+  cursor: pointer;
 }
 
-.option {
+.option-container {
+  border-radius: 50%;
+}
+
+.option,
+.face-shape-square,
+.face-shape-round-square,
+.face-shape-circle {
   height: 75px;
   width: 75px;
-  border-radius: 50%;
   cursor: pointer;
   overflow: hidden;
 }
 
-.option-selected {
+.option,
+.face-shape-circle {
+  border-radius: 50%;
+}
+
+.face-shape-square {
+  border-radius: 0;
+}
+
+.face-shape-round-square {
+  border-radius: 20px;
+}
+
+.option-selected,
+.face-option-container {
   border: 2px solid black;
+}
+
+.face-option-selected {
+  background-color: black;
 }
 
 .grid {
@@ -135,5 +177,11 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media print {
+  .App-button-group {
+    display: none;
   }
 }
