@@ -272,10 +272,11 @@ function App() {
             </div>)}
         </div>
         <div className='watch-face' style={{
-          outline: style === STYLE.REALISTIC_LEATHER || style === STYLE.REALISTIC_METAL ?
+          border: style === STYLE.REALISTIC_LEATHER || style === STYLE.REALISTIC_METAL ?
           `${size * 0.1}px solid gray` : `${size * 0.1}px solid ${color}`,
           width: `${size * 3.5}px`,
           height: `${size * 3.5}px`,
+          boxSizing: 'border-box',
           // outline: style === STYLE.DOMINANT_COLOR ? '2px black solid' : 'none',
           borderRadius: getBorderRadius(faceShape)
         }}>
